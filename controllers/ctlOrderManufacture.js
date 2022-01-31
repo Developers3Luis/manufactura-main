@@ -282,7 +282,7 @@ order_manufac_Schema.sincAD = function(req, res){
             } else {
                 //req.session.cookie.expires = new Date(Date.now() +  (30 * 1000 * 30));      
                 objManufactura.find({_id: req.params.id}).exec(function(err, manufactura){
-                    console.log(req.params);
+                    // console.log(req.params);
                     if(err){ 
                         return res.redirect('../../manufactura' + 
                             '?origen=sincronizar Orden en ADempiere&error='+ 
@@ -295,19 +295,27 @@ order_manufac_Schema.sincAD = function(req, res){
                     manufactura[0].ad_org_id + ',' + manufactura[0].m_product_id + ','  + 
                     manufactura[0].cantidad + ','  + 1000033+ ','  +
                     manufactura[0].m_warehouse_id + ',' + user.ad_user_id + ',' +
-                    manufactura[0].hr_employe_id + ') as ordendoc '; 
+                    manufactura[0].hr_employe_id + ',' + manufactura[0].rf_id_molde_id +') as ordendoc '; 
                     objManufacturaAD
                     .insertarOrdenAD(qryt)
                     .then(resultAD => {  
                         console.log(resultAD);
                         if (typeof resultAD[0].ordendoc !== 'undefined') {  
-                            console.log(resultAD); 
-                            manufactura.sincronizado = true;
-                            manufactura.orden_ad = resultAD[0].ordendoc;
-                            manufactura.update_by = user.id;
-                            manufactura.update_at = new Date(Date.now());
-                            manufactura.sinc_with_ad = new Date(Date.now()); 
-                            manufactura.save();  
+                            // console.log(resultAD); 
+                            // manufactura.sincronizado = true;
+                            // manufactura.orden_ad = resultAD[0].ordendoc;
+                            // manufactura.update_by = user.id;
+                            // manufactura.update_at = new Date(Date.now());
+                            // manufactura.sinc_with_ad = new Date(Date.now()); 
+                            objManufactura.updateOne({_id:req.params.id},
+                                                    {sincronizado: true,
+                                                        orden_ad :resultAD[0].ordendoc,
+                                                        update_by : user.id,
+                                                        update_at : new Date(Date.now()),
+                                                        sinc_with_ad : new Date(Date.now())}
+                                                ).then(res=>{ return res
+                                                }).catch(err=>{return err})
+                            // manufactura.save();  
                             return res.redirect('../../manufactura' );
                         }else{
                             return res.redirect('../../manufactura' + '?origen=sincronizar Orden en ADempiere&error='+ "Algo no permitio Ejecutar la sincronización en la BD de Adempiere: " + resultAD.ordendoc);

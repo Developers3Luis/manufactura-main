@@ -30,7 +30,7 @@ const pool = new Pool({
     // host: '172.16.103.113',
     host: 'pruebas.refividrio.com.mx',
     // database: 'RFV03072021',
-    database:'RFV07082021',
+    database:'RFV14012022',
     //     database: 'Hoods300121',
     // password: '@d3mp13r3',
     password: '[rfhood_.?/]',

@@ -2,7 +2,7 @@ const conexion = require("./conexion")
 module.exports = { 
         async insertarOrdenAD(qryt) { 
         await conexion.query("SET search_path to adempiere;");  
-        const query = "SELECT " + qryt + "LIMIT 1"; 
+        const query = "SELECT " + qryt ; 
         console.log(query);  
         let resultados = await conexion.query(query);  
         return resultados.rows;
