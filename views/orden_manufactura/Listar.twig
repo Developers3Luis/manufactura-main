@@ -1,0 +1,46 @@
+{% extends 'layout.twig' %} 
+
+
+{% block submenu %}  	
+        <h5>Usuario</h5> 
+         <br>
+        <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <a href="/user/create"><p style="color:#fff" ><strong>Crear Usuario</strong></p> </a>  
+            </div>  
+        </div>
+        </div> 
+{% endblock %}  
+ 
+{% block body %} 
+        <div class="container"> 
+            {% if manufacturas is not empty %}
+                <table class="table">
+                    <thead  >
+                        <tr> 
+                            <th style="background:#008fd3;color:#fff;">Producto</th>
+                            {# <th style="background:#008fd3;color:#fff;">Organización</th> #}
+                            <th style="background:#008fd3;color:#fff;">Cantidad</th>
+                            <th style="background:#008fd3;color:#fff;">Sincronizado</th>  
+                            <th style="background:#008fd3;color:#fff;">Orden AD</th>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for manufactura in manufacturas %}
+                        <tr>
+                            <td><a href="/products/show/{{ user._id }}">{{ user.firstname }} {{ user.lastname }}</a></td>
+                             <td>{{ user.rol }}</td>
+                            <td>{{ user.usuario }}</td>
+                             <td>{{ user.mail }}</td>  
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div>No products found.</div>
+            {% endif %}
+        </div>
+{% endblock %}   
+
+ 

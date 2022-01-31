@@ -1,0 +1,13 @@
+
+<label for="exampleInputEmail1">Producto</label> 
+<input type="text" class="form-control" id="buscarInSelect" placeholder="Introduce un valor para una selección aútomatica"  onChange="buscarSelect()" change="buscarSelect()"> <hr> 
+<select id="elementos" class="form-control" name="m_product_id" aria-describedby="productos"> 
+{% if productos is not empty %} 
+    {% for producto in productos %}
+        <option value={{ producto.m_product_id }}> {{ producto.value }} {{ producto.name }}  {{ producto.description }}</option> 
+    {% endfor %}     
+{% else %}
+<option value="">Sin producto</option>
+{% endif %} 
+</select>  
+ 

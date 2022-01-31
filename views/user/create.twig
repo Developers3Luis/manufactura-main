@@ -1,0 +1,91 @@
+{% extends 'layout.twig' %}
+
+ 
+{% block submenu %}
+       <h5 style="color:black;">Usuario</h5> 
+         <br>
+        <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <a href="/user"><p style="color:black;"><strong>Lista de Usuarios</strong></p> </a>  
+            </div> 
+        </div>
+        </div> 
+{% endblock %}  
+{% block body %} 
+    <br>
+      <div class="container"> 
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Usuario de adempiere</label> 
+                        <!-- Funcion en funcionesGenerales.js -->
+                        <input type="text" class="form-control" id="buscarInSelectad_users" placeholder="Introduce un valor para una selección aútomatica" 
+                         onkeyup="buscarSelectad_users(this);" > <hr> 
+                        <div id="warehouseFilter" >  
+                            <select id="ad_users" class="form-control" name="ad_users" aria-describedby="ad_users" required> 
+                                {% if ad_users is not empty %} 
+                                    {% for ad_user in ad_users %}
+                                        <option value='{{ ad_user|json_encode() }}'  > {{ ad_user.value }} </option> 
+                                    {% endfor %}     
+                                {% else %}
+                                <option value="">Sin Empleados</option>
+                                {% endif %} 
+                            </select>   
+                        </div>
+                    </div> 
+                                                         <!-- Funcion en funcionesGenerales.js -->
+                    <input type="submit" value="Extrar Datos de ADempiere" onclick="getUserFillForm()" style="	background-color: #06AA4F;" class="boton" />
+              
+                    <form action="/user/save" method="post"> 
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Primer Nombre</label>
+                                            <input type="text" class="form-control" id="firstname" name="firstname" aria-describedby="Primer nombre" placeholder="Primer Nombre" required>
+                        </div> 
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Apellidos</label>
+                                            <input type="text" class="form-control" id="lastname" name="lastname" aria-describedby="Apellidos" placeholder="Apellidos" required>
+                        </div>
+ 
+                        <div class="form-group">
+                                <label for="exampleInputEmail1">Rol</label>
+                                <select class="form-control" id="rol" name="rol" aria-describedby="rol" required>
+                                    <option value="Admin">Admin</option> 
+                                    <option value="User" selected>User</option> 
+                                </select> 
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Estado</label>
+                            <select class="form-control" id="esActivo" name="esActivo" aria-describedby="rol" required>
+                                <option value="true" selected>Activo</option> 
+                                <option value="false" >Inactivo</option> 
+                            </select> 
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Usuario</label>
+                                            <input type="text" class="form-control" id="user" name="user" aria-describedby="Usuario" placeholder="Usuario" required> 
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Password</label>
+                              <input type="password" class="form-control" id="password" name="password" aria-describedby="password" placeholder="password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Correo</label>
+                                            <input type="email" class="form-control" id="mail" name="mail" aria-describedby="Email" placeholder="Email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">ID ADempiere</label>
+                                            <input type="number" class="form-control" id="ad_user_id" name="ad_user_id" aria-describedby="ad_user_id" placeholder="ad_user_id" required>
+                        </div>
+                        
+                        <!-- <div class="form-group">
+                            <label for="exampleInputEmail1">Fecha Nacimiento</label>
+                                            <input type="Date" class="form-control" id="birth_date" name="birth_date" aria-describedby="Fecha Nacimiento" placeholder="Fecha Nacimiento">
+                        </div>  -->
+                    <center><input type="submit" value="Guardar" style="	background-color: #1042A0;color: #fff;" class="boton"  />  </center>
+                    </form> 
+        </div>
+{% endblock %} 

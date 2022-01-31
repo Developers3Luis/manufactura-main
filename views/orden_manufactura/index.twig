@@ -1,0 +1,132 @@
+{% extends 'layout.twig' %}
+  {% block submenu %}
+    <div class="card col-md-12 " style="border-color:white;">
+        <div class="card-body">
+            <div class="card-title">
+            <h5 style="color:black;">Orden de Manufactura</h5> 
+            </div>
+            <div class></div>
+            <div class="container">
+                <div class="row">
+                    {# <div class="col-sm">
+                    <a href="/manufactura"> <p style="color:#fff" ><strong>Listar Ordenes</strong></p> </a>  
+                    </div>  #}
+                    <div class="col-sm">
+                    <a class="btn" href="/manufactura/grilla"> <p style="color:black" ><strong>Ir a Captura de Ordenes >></strong></p> </a>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+  
+{% endblock %}  
+{# {% block titulo %} Lista {% endblock %}   #}
+{% block body %} 
+     <div  style="padding: 0px 30px 30px 30px;" >  
+            {% if manufacturas is not empty %}
+            <p><strong>*Últimas Ordenes de Manufactura (período: 2 días)</strong></p>
+            <div id="div1" >  
+            <div id="paginador"></div>  
+                <table  class="table table-striped table-hover"   id="tblDatos"> 
+                    <thead >
+                        <tr> 
+                            <th style="background:#008fd3;color:#fff;">Colaborador</th>
+                            <th style="background:#008fd3;color:#fff;">Producto</th>
+                            <th style="background:#008fd3;color:#fff;">Organización</th>
+                            <th style="background:#008fd3;color:#fff;">Cant.</th>
+                            <th style="background:#008fd3;color:#fff;">Sinc</th>  
+                            <th style="background:#008fd3;color:#fff;">Orden AD</th> 
+                            <th style="background:#008fd3;color:#fff;">Molde ID</th>  
+                            <th style="background:#008fd3;color:#fff;">F-Sinc</th>  
+                            <th style="background:#008fd3;color:#fff;"></th>   
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for manufactura in manufacturas %}
+                            <tr> 
+                                <td style="">  
+                                    <FONT SIZE=2 > 
+                                        {% set existe = false %}
+                                        {% if hr_employees is not empty %}
+                                            {% for hr_employee in hr_employees %} 
+                                                {% if manufactura.hr_employe_id == hr_employee.hr_employee_id %}
+                                                    {% set existe = true %}
+                                                    {{ hr_employee.name }} {{ hr_employee.name2 }}
+                                                {% endif %}   
+                                            {% endfor %} 
+                                        {% endif %}    
+
+                                        {% if existe == false %} 
+                                            <p style="color:red;" >SIN ASIGNACIÓN</p>
+                                        {% endif %}    
+                                    </FONT>
+                                </td>
+
+                                <td> 
+                                    <FONT SIZE=2 > 
+                                        {% if productos is not empty %}
+                                            {% for producto in productos %}
+                                                {% if manufactura.m_product_id == producto.m_product_id %}
+                                                {{ producto.name }}_{{ producto.value }}  
+                                                {% endif %}   
+                                            {% endfor %}
+                                        {% endif %}  
+                                    </FONT> 
+                                </td>
+                                <td>
+                                    <FONT SIZE=2 > 
+                                        {% if organizaciones is not empty %}
+                                            {% for organizacion in organizaciones %}
+                                                {% if organizacion.ad_org_id == manufactura.ad_org_id %}
+                                            {{ organizacion.name }}_{{ organizacion.ad_org_id }}
+                                                {% endif %}   
+                                            {% endfor %}
+                                        {% endif %}
+                                     </FONT>
+                                </td>
+                                <td>
+                                    <FONT SIZE=2 > 
+                                        <center>{{ manufactura.cantidad }}</center>
+                                </td>
+                                <td>
+                                    <FONT SIZE=2 >  
+                                        <center> 
+                                            {% if manufactura.sincronizado %}
+                                                    Si
+                                            {% else %}
+                                                    No
+                                            {% endif %}
+                                        </center>
+                                     </FONT>
+                                </td>
+                                <td><FONT SIZE=2 > <center> <strong> <strong>{{ manufactura.orden_ad }}</strong></strong> </center> </FONT></td> 
+
+                                <td><FONT SIZE=2 > <center>{{ manufactura.rf_id_molde_id }} </center></FONT></td>  
+
+                                <td><FONT SIZE=2 > <center> {{ manufactura.sinc_with_ad is null ? "N/S" : manufactura.sinc_with_ad|date("d/m/Y") }}</center> </FONT></td>  
+                                <td> 
+                                    <FONT SIZE=2 > 
+                                        {% if manufactura.sincronizado %}
+                                                Registro no editable.
+                                        {% else %}
+                                                <input type="submit" value=" Borr. "  onclick="confirmarElinacion('formDeleteManufactura{{ manufactura.id }}')"   style="background:none;color:red;border:none;">  
+                                                <a type="button" href="../../manufactura/edit/{{ manufactura.id }}"  > Mod.</a>  
+                                                <a type="button" href="../../manufactura/sincronizar/{{ manufactura.id }}"   style="color:#04D400;border:none;"> Env. Adempiere</a>
+                                                <form id="formDeleteManufactura{{ manufactura.id }}" action="/manufactura/delete/{{ manufactura.id }}" method="post"> </form>    
+                                        {% endif %}   
+                                    </FONT>                  
+                                </td>  
+                            </tr>
+                        {% endfor %} 
+            {% else %}
+                <div>No hay manufacturas</div>
+            {% endif %}
+         </tbody>
+        </table>
+        </div>  
+      </div> 
+      </div> 
+{% endblock %}  
+ 
+ 

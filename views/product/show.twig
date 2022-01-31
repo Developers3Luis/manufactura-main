@@ -1,0 +1,39 @@
+{% extends 'layout.twig' %}
+{% block submenu %}
+    <p>Productos</p>  
+    <menu>
+        <li>
+             <a href="/products/create">Create Product</a>  </li>
+        <li>
+            <a href="/products">Product List</a> 
+        </li>
+    </menu> 	
+{% endblock %} 
+{% block titulo %} Detalle {% endblock %}   
+{% block body %} 
+       <div class="container"> 
+            <table  class="table">
+                 <thead class="thead-dark">
+                        <tr> 
+                            <th>Employee Name</th>
+                            <th>Position</th>
+                            <th>Function</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    <tr> 
+                        <td>{{ product.name }}</td> 
+                        <td>{{ product.price }}</td>
+                        <td>
+                                <form action="/products/delete/{{ product._id }}" method="post">  
+                               <input type="submit" value="Borrar" class="btn btn-danger">
+                                </form>
+                                <a type="button" href="../../products/edit/{{ product._id }}" class="btn btn-success">Modificar</a>     
+                        </td>
+                    </tr> 
+
+                </tbody>
+            </table> 
+        </div>
+{% endblock %}   
+ 

@@ -1,0 +1,27 @@
+{% extends 'layout.twig' %}
+  {% block submenu %}
+    <div class="card "  style="max-width:10em; border-color:white">
+        <div class="card-body text-h1">
+            <div class="card-title" style="color:black; font-size:18px;"  ><strong>Inicia Sesión</strong></div>   
+        </div>
+    </div>
+{% endblock %}  
+{% block titulo %}  OM  {% endblock %}  
+{% block body %}  
+    <div class="login"> 
+    <div class="login-form">
+        <form action="/" method="post">
+            <p>Usuario:</p>
+            <input type="text" placeholder="Username" name="logemail" id="name" required /><br>
+            <p>Contraseña:</p>
+            <input type="password" placeholder="Password" name="logpassword" id="logpassword" required />
+            <br>
+            <input type="submit" value="Entrar" style="	background-color: #2e518b;" />
+            <br>  
+            <p style="color:#E86850; ;" >Contacta al admin para recuperar tu contraseña</p> 
+        </form>
+    </div>
+    </div> 
+{% endblock %}  
+ 
+ 

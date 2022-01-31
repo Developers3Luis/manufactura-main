@@ -1,0 +1,77 @@
+
+ {% extends 'layout.twig' %}
+  {% block submenu %}
+    <p style="color:black;">Usuario</p>  
+    <menu>
+        <!-- <li>
+             <a href="/manufactura/create">Crear Orden de Manufactura</a>  </li> -->
+        <li style="color:black;">
+            <a href="/manufactura">Listar Ordenes de Manufacturas</a> 
+        </li>
+    </menu> 	
+{% endblock %}  
+
+{% block titulo %} Actualizar Registro {% endblock %}   
+{% block body %} 
+        <div class="container">  
+           <div class="container">   
+                    <form action="/manufactura/update/{{ manufactura._id }}" method="post"> 
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Organizacón</label> 
+                            <!-- <input type="text" class="form-control" id="buscarInSelectOrg" placeholder="Introduce un valor para una selección aútomatica"  onChange="buscarSelectorg()" change="buscarSelectorg()"> <hr>  -->
+                                <select id="ad_org_id" class="form-control" name="ad_org_id" aria-describedby="productos" required> 
+                                    {% if organizaciones is not empty %} 
+                                        {% for organizacion in organizaciones %}
+                                            <option value={{ organizacion.ad_org_id }} {% if organizacion.ad_org_id == manufactura.ad_org_id %} selected {% endif %} > {{ organizacion.ad_org_id }} {{ organizacion.name }} </option> 
+                                        {% endfor %}     
+                                    {% else %}
+                                    <option value="">Sin Sucursales</option>
+                                    {% endif %} 
+                                </select>  
+                        </div>  
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Almácen</label> 
+                            <input type="text" class="form-control" id="buscarInSelectwarehouse" placeholder="Introduce un valor para una selección aútomatica"  onChange="buscarSelectwarehouse()" change="buscarSelectwarehouse()"> <hr> 
+                            <div id="warehouseFilter" >  
+                                <select id="m_warehouse_id" class="form-control" name="m_warehouse_id" aria-describedby="m_warehouse_id" required> 
+                                    {% if warehouses is not empty %} 
+                                        {% for warehouse in warehouses %}
+                                            <option value={{ warehouse.m_warehouse_id }} {% if warehouse.m_warehouse_id == manufactura.m_warehouse_id %} selected {% endif %} > {{ warehouse.value }} {{ warehouse.name }}</option> 
+                                        {% endfor %}     
+                                    {% else %}
+                                    <option value="">Sin Almacenes</option>
+                                    {% endif %} 
+                                </select>  
+                            </div>
+                        </div> 
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Producto</label> 
+                            <input type="text" class="form-control" id="buscarInSelect" placeholder="Introduce un valor para una selección aútomatica"  onChange="buscarSelect()" change="buscarSelect()"> <hr> 
+                               
+                                <select id="elementos"  class="form-control" name="m_product_id" aria-describedby="productos" required> 
+                                    {% if productos is not empty %} 
+                                        {% for producto in productos %}
+                                            <option value={{ producto.m_product_id }} {% if producto.m_product_id == manufactura.m_product_id %} selected {% endif %} > {{ producto.value }} {{ producto.name }}  {{ producto.description }}</option> 
+                                        {% endfor %}     
+                                    {% else %}
+                                    <option value="">Sin producto</option>
+                                    {% endif %} 
+                                </select>  
+                                
+                        </div>  
+
+                        <div class="form-group">
+                            <label for="exampleInput">Cantidad</label>
+                                            <input required type="number" class="form-control" value={{ manufactura.cantidad }} id="cantidad" name="cantidad" aria-describedby="Cantidad que se producirá por empleado" placeholder="Cantidad que se producirá por empleado">
+                        </div>  
+                    <input type="submit" value="Guardar"  class="btn btn-info" />
+                    </form> 
+        </div>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}  
+ 
+
+
+  

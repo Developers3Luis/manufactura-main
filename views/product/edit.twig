@@ -1,0 +1,32 @@
+{% extends 'layout.twig' %}
+ 
+{% block titulo %} Editar {% endblock %}   
+{% block submenu %}
+    <p>Productos</p>  
+    <menu>
+        <li>
+             <a href="/products/create">Create Product</a>  </li>
+        <li>
+            <a href="/products">Product List</a> 
+        </li>
+    </menu> 	
+{% endblock %} 
+{% block body %} 
+   <div class="container">  
+           <div class="container">  
+                    <form action="/products/update/{{ product._id }}" method="post">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Name</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" name="name" aria-describedby="Name" placeholder="name"  value="{{ product.name }}" >
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Price</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1"  value="{{ product.price }}"  name="price" aria-describedby="Price" placeholder="name">
+                    </div>
+                    <input type="submit" value="Update"  class="btn btn-info" />
+                    </form>  
+        </div>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}  
+
+ 

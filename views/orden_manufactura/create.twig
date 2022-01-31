@@ -1,0 +1,71 @@
+{% extends 'layout.twig' %}
+{% block titulo %} Nuevo Orden de Manufactura{% endblock %} 
+{% block submenu %}
+    <p>Usuario</p>  
+    <menu>
+        <!-- <li>
+             <a href="/manufactura/create">Crear Orden de Manufactura</a></li> -->
+        <li>
+           <a href="/manufactura"> <p style="color:#fff" ><strong>Listar Ordenes</strong></p> </a>       
+        </li>
+    </menu> 
+{% endblock %}  
+{% block body %} 
+      <div class="container">  
+                    <form action="/manufactura/save" method="post"> 
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Organizacón</label> 
+                            <!-- <input type="text" class="form-control" id="buscarInSelectOrg" placeholder="Introduce un valor para una selección aútomatica"  onChange="buscarSelectorg()" change="buscarSelectorg()"> <hr>  -->
+                            <select id="ad_org_id" class="form-control" name="ad_org_id" aria-describedby="productos" required  > 
+                                <option value="">Selecciona Sucursal</option>
+                                {% if organizaciones is not empty %} 
+                                    {% for organizacion in organizaciones %}
+                                        <option value={{ organizacion.ad_org_id }}> {{ organizacion.ad_org_id }} {{ organizacion.name }} </option> 
+                                    {% endfor %}     
+                                {% else %}
+                                <option value="">Sin Sucursales</option>
+                                {% endif %} 
+                            </select>  
+                        </div>  
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Almácen</label> 
+                            <input type="text" class="form-control" id="buscarInSelectwarehouse" placeholder="Introduce un valor para una selección aútomatica"  onChange="buscarSelectwarehouse()" change="buscarSelectwarehouse()"> <hr> 
+                            <div id="warehouseFilter" >  
+                                <select id="m_warehouse_id" class="form-control" name="m_warehouse_id" aria-describedby="m_warehouse_id" required> 
+                                    {% if warehouses is not empty %} 
+                                        {% for warehouse in warehouses %}
+                                            <option value={{ warehouse.m_warehouse_id }} > {{ m_warehouse_id.name }} </option> 
+                                        {% endfor %}     
+                                    {% else %}
+                                    <option value="">Sin Almacenes</option>
+                                    {% endif %} 
+                                </select>  
+                            </div>
+                        </div> 
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Producto</label> 
+                            <input type="text" class="form-control" id="buscarInSelect" placeholder="Introduce un valor para una selección aútomatica"  onChange="buscarSelect()" change="buscarSelect()"> <hr> 
+                            <div id="productFilter" >  
+                                <select id="elementos" class="form-control" name="m_product_id" aria-describedby="productos" required> 
+                                    {% if productos is not empty %} 
+                                        {% for producto in productos %}
+                                            <option value={{ producto.m_product_id }}> {{ producto.value }} {{ producto.name }}  {{ producto.description }}</option> 
+                                        {% endfor %}     
+                                    {% else %}
+                                    <option value="">Sin producto</option>
+                                    {% endif %} 
+                                </select>  
+                            </div>
+                        </div> 
+                        
+                        <div class="form-group">
+                            <label for="exampleInput">Cantidad</label>
+                            <input type="number" class="form-control" id="cantidad" name="cantidad" aria-describedby="Cantidad que se producirá por empleado" required placeholder="Cantidad que se producirá por empleado " />
+                        </div> 
+                        <input type="submit" value="Guardar"  class="btn btn-info" />
+                    </form> 
+        </div> 
+{% endblock %} 
+

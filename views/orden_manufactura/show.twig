@@ -1,0 +1,48 @@
+{% extends 'layout.twig' %}
+
+
+{% block submenu %}
+      <h5>Usuario</h5> 
+         <br>
+        <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <a href="/user/create"><p style="color:#fff" ><strong>Crear Usuario</strong></p> </a>  
+            </div> 
+            <div class="col-sm">
+                <a href="/user"><p style="color:#fff" ><strong>Lista de Usuarios</strong></p> </a>  
+            </div> 
+        </div>
+        </div> 	
+{% endblock %}  
+{% block titulo %} Detalle {% endblock %}   
+{% block body %} 
+       <div class="container">  
+            <table class="table">
+                    <thead class="thead-dark">
+                        <tr> 
+                            <th>Nombre</th>
+                            <th>rol</th>
+                            <th>Usuario</th>
+                            <th>Email</th>
+                            <th>Función</th> 
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <tr>
+                            <td><a href="/user/show/{{ user._id }}">{{ user.firstname }} {{ user.lastname }}</a></td>
+                            <td>{{ user.rol }}</td>
+                            <td>{{ user.user }}</td>
+                            <td>{{ user.mail }}</td>  
+                            <td>
+                                <form action="/user/delete/{{ user._id }}" method="post">  
+                                <input type="submit" value="Borrar" class="btn btn-danger">
+                                </form>
+                                <a type="button" href="../../user/edit/{{ user._id }}" class="btn btn-success">Modificar</a>     
+                            </td>
+                        </tr> 
+                    </tbody>
+            </table> 
+        </div>
+{% endblock %}   
+ 

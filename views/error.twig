@@ -1,0 +1,7 @@
+{% extends 'layout.twig' %} 
+{% block body %}  
+    <h3>La ruta no Existe </h3> <a href="../../logout">Volver a ingresar</a> 
+  <h3>{{message}}</h3>
+  <p>{{error.status}}</p>
+  <pre>{{error.stack}}</pre>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'layout.twig' %}
+  
+{% block titulo %} Lista {% endblock %}  
+{% block submenu %}
+    <p style="color:black">Productos</p>  
+    <menu>
+        <li>
+             <a href="/products/create">Create Product</a>  </li>
+        <li>
+            <a href="/products">Product List</a> 
+        </li>
+    </menu> 	
+{% endblock %} 
+{% block body %} 
+     <div class="container">  
+       <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            {% if productos is not empty %}
+                <table  class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Employee Name</th>
+                            <th>Position</th>
+                             <th>activo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos %}
+                        <tr>
+                          <td>{{ producto.name }}</td>
+                            <td>{{ producto.value }}</td> 
+                             <td>{{ producto.isactive }}</td> 
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div>No products found.</div>
+            {% endif %}
+        </div>
+          </div>
+{% endblock %}  
+
+ 

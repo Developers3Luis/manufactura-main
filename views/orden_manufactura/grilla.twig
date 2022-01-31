@@ -1,0 +1,229 @@
+{% extends 'layout.twig' %}
+  {% block submenu %}
+    <div class="card col-md-3" style="border-color:white;">
+        <div class="card-body">
+            <div class="card-title">
+                <h5 style="color:black;">Captura de Orden</h5>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <a class="btn" href="/manufactura"> <p style="color:black;" ><strong>Listar Ordenes</strong></p> </a>  
+                    </div> 
+                </div>
+            </div> 
+        </div>
+    </div>
+        {# <br> #}
+{% endblock %} 
+ 
+{% block body %}   
+  
+    <!-- The Modal -->
+    <div id="myModal" class="modal"> 
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Progreso....</p>
+        <div id="progres"> 
+        </div>
+      </div> 
+    </div>
+    
+    {# <div class="container"> #}
+    <div class="row">   
+            
+        <div class="col-md-4 " ><!-- form Controls -->
+                <div class="row container">   
+                    <div class="col-md-2" > 
+                        <center>
+                            <label>Organización</label> 
+                        </center>
+                    </div> 
+                    <div class="col-md-12"  >
+                        <select id="ad_org_id" class="form-control" name="ad_org_id" aria-describedby="productos" onchange="llenarCombosDS()" required  > 
+                            <option value="">Selecciona Sucursal</option>
+                            {% if organizaciones is not empty %} 
+                                {% for organizacion in organizaciones %}
+                                    <option value={{ organizacion.ad_org_id }}> {{ organizacion.ad_org_id }} {{ organizacion.name }} </option> 
+                                {% endfor %}     
+                            {% else %}
+                                <option value="">Sin Sucursales</option>
+                            {% endif %} 
+                        </select>  
+                    <div style="background: none;height:25px;border:5px" ><div style="background: #e7e7e7;height:2px;" ></div></div>   
+                    </div>    
+
+
+                    {# <div class="col-md-2" > 
+                        <label for="exampleInputEmail1" style="align:'right'">Almácen</label>  
+                    </div>
+                    <div class="col-md-10" >
+                        <input type="text" class="form-control" id="buscarInSelectwarehouse" placeholder="Buscar Almácen" onkeypress="buscarSelectwarehouse()"  onChange="buscarSelectwarehouse()" change="buscarSelectwarehouse()"> <hr> 
+                    </div>  #}
+
+
+                    <div class="col-md-12" > 
+                        <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Almácen</span>
+                        </div> 
+                             <input type="text"  class="form-control" id="buscarInSelectwarehouse" placeholder="Buscar Almácen" onkeypress="buscarSelectwarehouse()" 
+                              onChange="buscarSelectwarehouse()" change="buscarSelectwarehouse()"> 
+                        </div> 
+                    </div>   
+
+                    <div class="col-md-12" >
+                        <div id="warehouseFilter" >
+                        <select id="m_warehouse_id" class="form-control" name="m_warehouse_id" aria-describedby="m_warehouse_id" required>
+                            {% if warehouses is not empty %}
+                                {% for warehouse in warehouses %}
+                                    <option value={{ warehouse.m_warehouse_id }} > {{ m_warehouse_id.name }} </option>
+                                {% endfor %}
+                            {% else %}
+                            <option value="">Sin Almacenes</option>
+                            {% endif %}
+                        </select>
+                        </div>
+                    <div style="background: none;height:25px;border:5px" ><div style="background: #e7e7e7;height:2px;" ></div></div>
+                    </div>
+
+                    <div class="col-md-12" > 
+                        <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Producto</span>
+                        </div> 
+                            <input type="text" class="form-control" id="buscarInSelect" placeholder="Buscar Producto"  
+                             onkeypress="buscarSelect()"
+                             onChange="buscarSelect()" 
+                             change="buscarSelect()"> 
+                        </div> 
+                    </div> 
+                    <div class="col-md-12" > 
+                        <div id="productFilter" >  
+                            <select id="elementos" class="form-control" name="m_product_id" aria-describedby="productos" 
+                                required onchange="llenarComboMolde()"
+                                change="llenarComboMolde()" > 
+                                {# {% if hr_employes is not empty %} 
+                                    {% for hr_employe in hr_employes %}
+                                        <option value={{ hr_employe.hr_employe_id }}> {{ hr_employe.name1 }} {{ hr_employe.name2 }}  </option> 
+                                    {% endfor %}     
+                                {% else %}
+                                <option value="0">Sin Empleados</option>
+                                {% endif %}  #}
+                                {% if productos is not empty %} 
+                                {% for producto in productos %}
+                                    <option value={{ producto.m_product_id }}> {{ producto.value }} {{ producto.name }}  {{ producto.description }}</option> 
+                                {% endfor %}     
+                                {% else %}
+                                    <option value="">Sin Productos</option>
+                                {% endif %} 
+                            </select>  
+                        </div>
+                        <div style="background: none;height:25px;border:5px" ><div style="background: #e7e7e7;height:2px;" ></div></div> 
+                    </div>  
+                        {#  Molde #} 
+                        {# <div class="col-md-12" > 
+                            <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm">Molde</span>
+                            </div> 
+                                <input type="text" class="form-control" id="buscarInSelect" placeholder="Buscar Molde"> 
+                            </div> 
+                        </div>  #}
+                    <div class="col-md-12" > 
+                        <div id="moldeFilter" >   
+                            <select id="RF_ID_Molde_ID" class="form-control" name="moldes" aria-describedby="moldes" required> 
+                                <option value=0 >Sin Molde</option>
+                            </select>  
+                        </div>
+                        <div style="background: none;height:25px;border:5px" ><div style="background: #e7e7e7;height:2px;" ></div></div> 
+                    </div>    
+                        {# Molde  #}
+                    <div class="col-md-12" > 
+                        <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Colaborador</span>
+                        </div> 
+ 
+                         <input type="text" class="form-control" aria-label="Small" id="buscarInSelecthr_employe_id"  
+                                            placeholder="Buscar Colaborador" onkeypress="buscarSelectLaminador()" onChange="buscarSelectLaminador()" change="buscarSelectLaminador()"> 
+                        </div> 
+                    </div> 
+                    <div class="col-md-12" > 
+                        <div id="laminadorFilter" >  
+                            <select id="hr_employe_id" class="form-control" name="hr_employe_id" aria-describedby="hr_employe_id" required> 
+                                {# {% if productos is not empty %} 
+                                    {% for producto in productos %}
+                                        <option value={{ producto.m_product_id }}> {{ producto.value }} {{ producto.name }}  {{ producto.description }}</option> 
+                                    {% endfor %}     
+                                {% else %}
+                                <option value="">Sin Colaboradores</option>
+                                {% endif %}  #}
+
+                                 {% if hr_employes is not empty %} 
+                                    {% for hr_employe in hr_employes %}
+                                        <option value={{ hr_employe.hr_employe_id }}> {{ hr_employe.name1 }} {{ hr_employe.name2 }}  </option> 
+                                    {% endfor %}     
+                                {% else %}
+                                <option value="0">Sin Colaboradores</option>
+                                {% endif %} 
+                            </select>  
+                        </div>
+                        <div style="background: none;height:25px;border:5px" ><div style="background: #e7e7e7;height:2px;" ></div></div> 
+                    </div>      
+                    <div class="col-md-12" > 
+                        <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Cantidad a producir</span>
+                        </div> 
+                          <input type="number" class="form-control" id="cantidad" name="cantidad" aria-describedby="Cantidad que se producirá por empleado" required placeholder="" />
+                        </div> 
+                    </div>
+
+                    {# <div class="col-md-6" >
+                        <label for="exampleInput">Cantidad a producir:</label>
+                        <div class="form-group" style="padding: 10px 10px 10px 10px;">
+                            <input type="number" class="form-control" id="cantidad" name="cantidad" aria-describedby="Cantidad que se producirá por empleado" required placeholder="" />
+                        </div>
+                    </div>
+                    <div class="col-md-6" >
+                        <div class="row">    
+                        </div>
+                    </div> #}
+                    <div class="col-md-12">
+                        <center>
+                            <input type="submit" value="Agregar"   onclick="agregarFila()" style="	background-color: #03A2CA; border-radius:8px;" class="boton" />
+                            <input type="submit" value="Guardar" onclick="saveForms(1)" style="	background-color: #06AA4F; border-radius:8px;" class="boton" />
+                            <input type="submit" value="Enviar a ADempiere" onclick="saveForms(0)" style="	background-color: #2e518b; border-radius:8px;" class="boton" />
+                        </center>
+                    </div>
+                </div>    
+        </div> <!-- FIN form Controls -->
+
+
+        <div class="col-md-8 "> 
+            <div class="table-wrapper-scroll-y my-custom-scrollbar" style="padding: 10px 10px 10px 10px;"> 
+                <table class="table table-striped"   id="tablaprueba">
+                  <thead   >
+                    <tr> 
+                        <th style="background:#008fd3;color:#fff;"><center><input id="lbcantidad" type="text" value="0" style=" text-align: center;color:#fff;background:none;width:30px;border:none;" /></center></th>
+                        {# <th>Organización</th> #}
+                        <th style="background:#008fd3;color:#fff;">Almácen</th>
+                        <th style="background:#008fd3;color:#fff;">Producto</th>
+                        <th style="background:#008fd3;color:#fff;">Cantidad</th>
+                        <th style="background:#008fd3;color:#fff;">Colaborador</th>
+                         <th style="background:#008fd3;color:#fff;">Molde</th>
+                        {# <th></th>   #}
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table> 
+              </div>
+        </div> 
+    </div>
+</div>
+ 
+
+{% endblock %}  

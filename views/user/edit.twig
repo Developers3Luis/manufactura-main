@@ -1,0 +1,79 @@
+{% extends 'layout.twig' %}
+    {% block submenu %}
+        <h5 style="color:black">Usuario</h5> 
+            <br>
+            <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <a class="btn" href="/user/create"><p style="color:black" ><strong>Crear Usuario</strong></p> </a>  
+                </div> 
+                <div class="col-sm-4">
+                    <a class="btn" href="/user"><p style="color:black" ><strong>Lista de Usuarios</strong></p> </a>  
+                </div> 
+            </div>
+            </div> 
+    {% endblock %}  
+{% block titulo %} Actualizar Registro {% endblock %}   
+{% block body %} 
+   <div class="container">  
+           <div class="container">   
+                    <form action="/user/update/{{ user._id }}" method="post">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Primer Nombre</label>
+                                            <input type="text" class="form-control" id="firstname"  required
+                                            name="firstname" value="{{ user.firstname }}" aria-describedby="Primer nombre" placeholder="Primer Nombre">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Apellidos</label>
+                                            <input type="text" class="form-control" id="lastname" value="{{ user.lastname }}" 
+                                             name="lastname" aria-describedby="Apellidos" placeholder="Apellidos" required>
+                        </div>
+ 
+                        <div class="form-group">
+                                <label for="exampleInputEmail1">Rol</label>
+                                <select class="form-control" id="rol" name="rol" aria-describedby="rol"   >
+                                    <option value="Admin"  {% if user.rol == "Admin" %} selected  {% endif %} >Admin</option> 
+                                    <option value="User"  {% if user.rol == "User" %} selected  {% endif %}  >User</option> 
+                                </select> 
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Estado</label>
+                            <select class="form-control" id="esActivo" name="esActivo" aria-describedby="esActivo"    >
+                                <option value="true"  {% if user.esActivo   %} selected  {% endif %} >Activo</option> 
+                                <option value="false"  {% if user.esActivo %}  {% else %} selected  {% endif %}  >Inactivo</option> 
+                            </select> 
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Usuario</label>
+                                            <input type="text" class="form-control" id="user" name="user" aria-describedby="Usuario" 
+                                            placeholder="Usuario" value="{{ user.user }}" required >
+                        </div>
+ 
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Correo</label>
+                                            <input type="email" class="form-control" id="mail" name="mail" aria-describedby="Email"  required
+                                            placeholder="Email" value="{{ user.mail }}" >
+                        </div>
+
+                         <div class="form-group">
+                            <label for="exampleInputEmail1">ADempiere ID</label>
+                                            <input type="number" class="form-control" id="ad_user_id"  name="ad_user_id" aria-describedby="ad_user_id"
+                                             placeholder="user id ADempiere" value="{{ user.ad_user_id }}"  required>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="exampleInputEmail1">Fecha Nacimiento</label>
+                            <input type="Date" class="form-control" id="birth_date" name="birth_date"  value={{  user.birth_date|date("Y-m-d") }}   >  
+                            </div> 
+                        --> 
+                            <br>
+                            <input type="submit" value="Guardar"  class="btn btn-info" />
+                    </form>  
+                    <br>
+        </div>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}  
+
+ 

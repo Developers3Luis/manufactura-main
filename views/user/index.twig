@@ -1,0 +1,60 @@
+{% extends 'layout.twig' %}
+  {% block submenu %}
+        <h5 style="color:black;">Usuario</h5> 
+         <br>
+        <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <a href="/user/create"><p style="color:black" ><strong>Crear Usuario</strong></p> </a>  
+            </div>  
+        </div>
+        </div> 
+{% endblock %}   
+{% block body %} 
+     <div  style="padding: 0px 50px 50px 50px;"  >  
+            {% if users is not empty %}
+            <div id="div1"> 
+            <div id="paginador"></div>
+         <!-- <div  >No. Registros<input id="numReg"   class="btn btn-link"  type="number" MIN="0" MAX="10" STEP="1" VALUE="8"  onchange="initPaginator()" > </div> -->
+                <table  class="table"   id="tblDatos"> 
+                    <thead class="thead-dark">
+                        <tr> 
+                            <th>Nombre</th>
+                            <th>rol</th>
+                            <th>Estado</th>
+                            <th>Usuario</th>
+                            <th>Email</th>
+                            <th>Estado</th>  
+                             <th>Función</th>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td><a href="/user/show/{{ user._id }}">{{ user.firstname }} {{ user.lastname }}</a></td>
+                            <td>{% if user.esActivo %} Activo {% else %}  Inactivo  {% endif %} </td>
+                            <td>{{ user.rol }}</td>
+                            <td>{{ user.user }}</td>
+                            <td>{{ user.mail }}</td>  
+                            <td> {% if user.esActivo   %} Activo  {% else %} Inactivo  {% endif %} </td>  
+                            <td> 
+                                <input type="submit" value="Borr."  onclick="confirmarElinacion('formDeleteUser{{ user._id }}')"   style="background:none;color:#C0392B;border:none;">  
+                                <a type="button" href="../../user/edit/{{ user._id }}" style="color:#04D400;border:none;" >Mod.</a> 
+                                <a type="button" href="../../user/changePassword/{{ user._id }}"  style="color:#CE81FF;border:none;" >Reset Pass.</a>       
+                                 <form id="formDeleteUser{{ user._id }}" action="/user/delete/{{ user._id }}" method="post"> </form>
+
+                            </td>  
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>  
+                  </div> 
+            {% else %}
+                <div>No users found.</div>
+            {% endif %}
+        </div>
+    <br><br><br><br><br><br><br><br><br><br>
+        
+{% endblock %}  
+ 
+ 
